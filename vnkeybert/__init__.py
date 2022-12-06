@@ -1,0 +1,1 @@
+from vnkeybert._model import VnKeyBERT

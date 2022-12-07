@@ -4,8 +4,9 @@ base_packages = [
     "numpy>=1.18.5",
     "rich>=10.4.0",
     "torch",
-    "tensorflow",
-    "transformers"
+    "transformers",
+    "py_vncorenlp"
+
     
 ]
 

@@ -1,12 +1,15 @@
 import os
 import py_vncorenlp
 from typing import List
+from pathlib import Path
 
 
 class Segmenter:
   def __init__(self) :
     parent_dir = os.path.dirname(__file__)
     vncorelp_dir = os.path.join(parent_dir,'vncorenlp')
+    vncorelp_path = Path(vncorelp_dir)
+    vncorelp_path.mkdir(parents=True, exist_ok=True)
     py_vncorenlp.download_model(save_dir=vncorelp_dir)
     self.rdrsegmenter = py_vncorenlp.VnCoreNLP(annotators=["wseg"], save_dir=vncorelp_dir)
   

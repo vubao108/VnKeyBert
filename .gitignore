@@ -72,7 +72,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+vnkeybert/backend/vncorenlp
 .idea
 .idea/
 .vscode

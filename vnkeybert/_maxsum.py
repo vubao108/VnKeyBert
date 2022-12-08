@@ -3,7 +3,7 @@ import itertools
 from sklearn.metrics.pairwise import cosine_similarity
 from typing import List, Tuple
 
-# source from https://raw.githubusercontent.com/MaartenGr/KeyBERT/master/keybert/_maxsum.py
+
 def max_sum_distance(
     doc_embedding: np.ndarray,
     word_embeddings: np.ndarray,
@@ -11,7 +11,9 @@ def max_sum_distance(
     top_n: int,
     nr_candidates: int,
 ) -> List[Tuple[str, float]]:
-    """Calculate Max Sum Distance for extraction of keywords
+    """
+    # source from https://raw.githubusercontent.com/MaartenGr/KeyBERT/master/keybert/_maxsum.py
+    Calculate Max Sum Distance for extraction of keywords
 
     We take the 2 x top_n most similar words/phrases to the document.
     Then, we take all top_n combinations from the 2 x top_n words and

@@ -11,7 +11,9 @@ def mmr(
     top_n: int = 5,
     diversity: float = 0.8,
 ) -> List[Tuple[str, float]]:
-    """Calculate Maximal Marginal Relevance (MMR)
+    """
+    # source from https://raw.githubusercontent.com/MaartenGr/KeyBERT/master/keybert/_maxsum.py
+    Calculate Maximal Marginal Relevance (MMR)
     between candidate keywords and the document.
 
 

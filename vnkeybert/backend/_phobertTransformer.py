@@ -40,10 +40,15 @@ class PhoBertTransformerBackend():
         
         documents = self.normalText.normal_text(documents)
         documents_ids = []
+
+        max_token_len = 0
         for doc in documents:
             doc_id = self.tokenizer.encode(doc)
             documents_ids.append(doc_id)
-
+            if max_token_len < len(doc_id):
+                max_token_len = len(doc_id)
+            
+        max_len = max_len if max_len < max_token_len else max_token_len
         documents_ids = pad_sequences(documents_ids, maxlen = max_len, dtype="long", value = 0, truncating = "post", padding = "post")
         print(documents_ids.shape)
 
@@ -53,7 +58,6 @@ class PhoBertTransformerBackend():
 
         docs_mask = []
         for item_ids in documents_ids:
-            print(self.tokenizer.decode(item_ids))
             mask = [int(token_id>0) for token_id in item_ids]
             docs_mask.append(mask)
         docs_mask =  torch.tensor(np.array(docs_mask))
@@ -76,7 +80,7 @@ class PhoBertTransformerBackend():
 
 if __name__ == '__main__':
   phobert = PhoBertTransformerBackend()
-  documents = ['Hôm_nay trời nóng quá nên tôi ở nhà viết Viblo!',
+  documents = ['Hôm_nay trời nóng quá nên tôi ở nhà !',
   'người_mẫu xinh trong bộ váy này khiến cô gái trở_nên dễ_thương một_cách kỳ_lạ  .'
   ]
   phobert.embed_cls(documents, is_verbose=True)

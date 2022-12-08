@@ -56,16 +56,14 @@ class VnKeyBERT:
 
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
-            candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)
-                        NOTE: This is not used if you passed a `vectorizer`.
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases.
-                                   NOTE: This is not used if you passed a `vectorizer`.
+                                  
             stop_words: Stopwords to remove from the document.
-                        NOTE: This is not used if you passed a `vectorizer`.
+                        
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
                     if keywords for multiple documents need to be extracted.
-                    NOTE: This is not used if you passed a `vectorizer`.
+                    
             use_maxsum: Whether to use Max Sum Distance for the selection
                         of keywords/keyphrases.
             use_mmr: Whether to use Maximal Marginal Relevance (MMR) for the
@@ -74,15 +72,6 @@ class VnKeyBERT:
                        is set to True.
             nr_candidates: The number of candidates to consider if `use_maxsum` is
                            set to True.
-            vectorizer: Pass in your own `CountVectorizer` from
-                        `sklearn.feature_extraction.text.CountVectorizer`
-            
-            doc_embeddings: The embeddings of each document.
-            word_embeddings: The embeddings of each potential keyword/keyphrase across
-                             across the vocabulary of the set of input documents.
-                             NOTE: The `word_embeddings` should be generated through
-                             `.extract_embeddings` as the order of these embeddings depend
-                             on the vectorizer that was used to generate its vocabulary.
 
         Returns:
             keywords: The top n keywords for a document with their respective distances
@@ -93,18 +82,19 @@ class VnKeyBERT:
         To extract keywords from a single document:
 
         ```python
-        from keybert import KeyBERT
-
-        kw_model = KeyBERT()
+        from vnkeybert import VnKeyBERT
+        doc = 'Trời hôm nay thật đẹp'
+        kw_model = VnKeyBERT()
         keywords = kw_model.extract_keywords(doc)
         ```
 
         To extract keywords from multiple documents, which is typically quite a bit faster:
 
         ```python
-        from keybert import KeyBERT
+        docs = ['Trời hôm nay thật đẹp', 'Chúc ngày mới tốt lành']
+        from vnkeybert import VnKeyBERT
 
-        kw_model = KeyBERT()
+        kw_model = VnKeyBERT()
         keywords = kw_model.extract_keywords(docs)
         ```
         """
@@ -133,14 +123,6 @@ class VnKeyBERT:
         else:
             words = count.get_feature_names()
         df = count.transform(docs)
-
-        # Check if the right number of word embeddings are generated compared with the vectorizer
-        # if word_embeddings is not None:
-        #     if word_embeddings.shape[0] != len(words):
-        #         raise ValueError("Make sure that the `word_embeddings` are generated from the function "
-        #                          "`.extract_embeddings`. \nMoreover, the `candidates`, `keyphrase_ngram_range`,"
-        #                          "`stop_words`, and `min_df` parameters need to have the same values in both "
-        #                          "`.extract_embeddings` and `.extract_keywords`.")
 
         # Extract embeddings
         

@@ -5,15 +5,18 @@ base_packages = [
     "rich>=10.4.0",
     "torch",
     "transformers",
-    "py_vncorenlp"
+    "py_vncorenlp",
     
 ]
+
+use_packages = ["tensorflow", "tensorflow_hub", "tensorflow_text"]
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="vnkeybert",
+    packages=find_packages(exclude=["notebooks", "docs"]),
     version="0.1.0",
     author="vubao",
     author_email="vubao108@gmail.com",

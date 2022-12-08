@@ -6,7 +6,6 @@ base_packages = [
     "torch",
     "transformers",
     "py_vncorenlp"
-
     
 ]
 

@@ -225,5 +225,5 @@ if __name__ == '__main__':
     vnKeyBERT = VnKeyBERT()
     while True:
         doc = input('nhập văn bản < 255 ky tự: ').strip()
-        keys = vnKeyBERT.extract_keywords(docs=[doc], keyphrase_ngram_range=(1,4),use_maxsum=True, top_n=10)
+        keys = vnKeyBERT.extract_keywords(docs=[doc], keyphrase_ngram_range=(1,4),use_maxsum=True, top_n=5)
         print(keys)

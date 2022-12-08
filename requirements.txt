@@ -1,0 +1,6 @@
+vncorenlp
+py_vncorenlp
+transformers
+numpy
+torch
+tensorflow

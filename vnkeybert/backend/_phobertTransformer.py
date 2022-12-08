@@ -28,7 +28,7 @@ class PhoBertTransformerBackend():
         
 
 
-    def embed(self, documents: List[str], max_len = 255) -> np.ndarray:
+    def embed(self, documents: List[str], max_len = 150) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional
         matrix of embeddings
         Arguments:
@@ -58,7 +58,7 @@ class PhoBertTransformerBackend():
         
         return embeddings.last_hidden_state
   
-    def embed_cls(self, documents: List[str], max_len = 255):
+    def embed_cls(self, documents: List[str], max_len = 150):
         if max_len > 255 and max_len < 1:
              raise ValueError(
                 "max_len must < 255 "   

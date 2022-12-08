@@ -47,7 +47,8 @@ class VnKeyBERT:
         use_maxsum: bool = False,
         use_mmr: bool = False,
         diversity: float = 0.5,
-        nr_candidates: int = 20
+        nr_candidates: int = 20,
+				max_len: int = 150
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
@@ -126,7 +127,7 @@ class VnKeyBERT:
 
         # Extract embeddings
         
-        doc_embeddings, word_embeddings = self.extract_embeddings(docs,keyphrase_ngram_range= keyphrase_ngram_range, is_segmented = True)
+        doc_embeddings, word_embeddings = self.extract_embeddings(docs,keyphrase_ngram_range= keyphrase_ngram_range, is_segmented = True, max_len = max_len)
         ## convert to numpy array 
         doc_embeddings = doc_embeddings.detach().numpy()
         word_embeddings = word_embeddings.detach().numpy()
@@ -185,7 +186,7 @@ class VnKeyBERT:
         self,
         docs: Union[str, List[str]],
         keyphrase_ngram_range: Tuple[int, int] = (1, 1),
-        is_segmented: bool = False
+        is_segmented: bool = False, max_len = 150
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         
         # Check for a single, empty document
@@ -212,8 +213,8 @@ class VnKeyBERT:
         else:
             words = count.get_feature_names()
 
-        doc_embeddings_cls = self.model.embed_cls(docs)
-        word_embeddings_cls = self.model.embed_cls(words)
+        doc_embeddings_cls = self.model.embed_cls(docs, max_len = max_len)
+        word_embeddings_cls = self.model.embed_cls(words, max_len = max_len)
 
         return doc_embeddings_cls, word_embeddings_cls
 

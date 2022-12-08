@@ -4,7 +4,7 @@ import os
 from typing import List, Union
 from transformers import AutoModel, AutoTokenizer
 from vnkeybert.backend._segmenter import Segmenter
-from vnkeybert.backend._normaltext import NormalText
+from vnkeybert._normaltext import NormalText
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import torch
 import re

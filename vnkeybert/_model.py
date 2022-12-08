@@ -213,7 +213,7 @@ class VnKeyBERT:
         else:
             words = count.get_feature_names()
 
-        doc_embeddings_cls = self.model.embed_cls(docs, max_len = max_len)
+        doc_embeddings_cls = self.model.embed_cls(docs, max_len = max_len, is_verbose= True)
         word_embeddings_cls = self.model.embed_cls(words, max_len = max_len)
 
         return doc_embeddings_cls, word_embeddings_cls

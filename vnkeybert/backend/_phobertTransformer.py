@@ -28,7 +28,7 @@ class PhoBertTransformerBackend():
         
 
 
-    def embed(self, documents: List[str], max_len = 150) -> np.ndarray:
+    def embed(self, documents: List[str], max_len = 150, is_verborse = False) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional
         matrix of embeddings
         Arguments:
@@ -47,8 +47,13 @@ class PhoBertTransformerBackend():
         documents_ids = pad_sequences(documents_ids, maxlen = max_len, dtype="long", value = 0, truncating = "post", padding = "post")
         print(documents_ids.shape)
 
+        if is_verborse:
+            for item_ids in documents_ids:
+              print(self.tokenizer.decode(item_ids))
+
         docs_mask = []
         for item_ids in documents_ids:
+            print(self.tokenizer.decode(item_ids))
             mask = [int(token_id>0) for token_id in item_ids]
             docs_mask.append(mask)
         docs_mask =  torch.tensor(np.array(docs_mask))
@@ -58,12 +63,12 @@ class PhoBertTransformerBackend():
         
         return embeddings.last_hidden_state
   
-    def embed_cls(self, documents: List[str], max_len = 150):
+    def embed_cls(self, documents: List[str], max_len = 150, is_verbose = False):
         if max_len > 255 and max_len < 1:
              raise ValueError(
                 "max_len must < 255 "   
             )
-        embedding = self.embed(documents, max_len=max_len)
+        embedding = self.embed(documents, max_len=max_len, is_verborse= is_verbose)
         return embedding[:,0,:]
     
     def get_segment(self, docs:List[str]) -> List[str]:
@@ -74,7 +79,7 @@ if __name__ == '__main__':
   documents = ['Hôm_nay trời nóng quá nên tôi ở nhà viết Viblo!',
   'người_mẫu xinh trong bộ váy này khiến cô gái trở_nên dễ_thương một_cách kỳ_lạ  .'
   ]
-  phobert.embed_cls(documents)
+  phobert.embed_cls(documents, is_verbose=True)
 
 
   

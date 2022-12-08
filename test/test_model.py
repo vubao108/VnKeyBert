@@ -10,7 +10,7 @@ import json
 import random
 import os
 current_dir = os.path.dirname(__file__)
-data_file = os.path.join(current_dir,'keywords_data.json' )
+data_file = os.path.join(current_dir,'test_data.json' )
 
 def get_random_text():
   with open(data_file, encoding='utf8') as f:
